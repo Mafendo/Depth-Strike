@@ -1,37 +1,49 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
+    [SerializeField] AnimationCurve curveY;
     private Rigidbody rb;
-    public float speedChangeAmout;
-    public float maxForwadSpeed;
-    public float maxBackwardsSpeed;
 
-    private float currSpeed;
+    private Vector3 movement;
+    public float speed = 1f;
+
+
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        InputHandler();
+    }
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
-
-        {
-            currSpeed -= speedChangeAmout;
-            currSpeed = Mathf.Clamp(currSpeed, maxBackwardsSpeed, maxForwadSpeed);
-
-
-        rb.linearVelocity = transform.forward * currSpeed;
-        }
-      
-
+        MovementHandler();
     }
 
+  
+    public float lerpFactor = 0.3f;
+
+    void MovementHandler()
+    {
+        Vector3 targetPosition = rb.position + new Vector3(movement.x, movement.y ,0).normalized * speed * Time.fixedDeltaTime;
+        Vector3 lerpPos = Vector3.Lerp(rb.position, targetPosition, lerpFactor);
+        rb.MovePosition(lerpPos);
+    }
+
+    void InputHandler()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        movement = new Vector3(horizontal, vertical, 0);
+
+
+    }
 }
