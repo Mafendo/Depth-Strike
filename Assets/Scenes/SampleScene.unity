@@ -314,10 +314,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1375688164258542598, guid: c5c2a67518f52564b8a055fe66d91502, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1693738372}
+      addedObject: {fileID: 1693738371}
     - targetCorrespondingSourceObject: {fileID: 1375688164258542598, guid: c5c2a67518f52564b8a055fe66d91502, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1693738371}
+      addedObject: {fileID: 1693738372}
   m_SourcePrefab: {fileID: 100100000, guid: c5c2a67518f52564b8a055fe66d91502, type: 3}
 --- !u!1 &832575517
 GameObject:
@@ -540,8 +540,8 @@ Rigidbody:
   m_GameObject: {fileID: 1693738370}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 5
+  m_AngularDamping: 3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -570,9 +570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a08b7921ebec78429c43193d508d8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedChangeAmout: 1
-  maxForwadSpeed: 10
-  maxBackwardsSpeed: -1
+  speed: 9.4
+  lerpFactor: 1.17
 --- !u!1 &1771237198
 GameObject:
   m_ObjectHideFlags: 0

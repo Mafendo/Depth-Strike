@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
         if (horizontal == 0 && vertical == 0)
         {
             movement = Vector3.zero;
-            Debug.Log("stop or");
+           
             return;
         }
         movement = new Vector3(horizontal, vertical, 0);
