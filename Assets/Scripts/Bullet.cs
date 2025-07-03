@@ -1,24 +1,21 @@
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class Bullet : MonoBehaviour
 {
-
-
     public float speed = 10f;
     public Vector3 direction;
-    [SerializeField] Collider a;
-      [SerializeField] Collider b;
 
-    void Start()
+
+
+    // Initialize bullet with direction 
+    public void Initialize(Vector3 dir)
     {
-       
+        direction = dir;
 
-        Physics.IgnoreCollision(a, b);
+
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
@@ -26,9 +23,17 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("bullet hit the:" + other.gameObject.name);
-        gameObject.SetActive(false);
+
+        if (other.CompareTag("Enemy"))
+        {
+
+            Debug.Log("Bullet hit: " + other.gameObject.name);
+            //gameObject.SetActive(false);
+        }
+       
+      
+
+
+
     }
-
-
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4757143439245507681}
   - component: {fileID: 4187442968187155697}
   - component: {fileID: 5523280220399244316}
+  - component: {fileID: 2410568630177380158}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -124,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a08b7921ebec78429c43193d508d8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  lerpFactor: 0.3
+  speed: 10
+  lerpFactor: 1.17
 --- !u!114 &4187442968187155697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletManagerPoolsScript: {fileID: 0}
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 4925388692996344113}
   bulletSpeed: 100
 --- !u!114 &5523280220399244316
 MonoBehaviour:
@@ -155,6 +156,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthText: {fileID: 9163359211309922909}
+--- !u!54 &2410568630177380158
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2887639528666593356}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3671789196421570498
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/0
+  m_text: NULL/0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -322,7 +350,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 6.874832, y: 0, z: 11.283214, w: 3.2570348}
+  m_margin: {x: 6.731611, y: 0, z: 5.2312865, w: 3.2570348}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
