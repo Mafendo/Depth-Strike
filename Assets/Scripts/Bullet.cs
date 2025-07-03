@@ -1,12 +1,22 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
+
+
     public float speed = 10f;
     public Vector3 direction;
+    [SerializeField] Collider a;
+      [SerializeField] Collider b;
 
+    void Start()
+    {
+       
 
+        Physics.IgnoreCollision(a, b);
+    }
 
     // Update is called once per frame
     void Update()
@@ -20,5 +30,5 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    
+
 }
