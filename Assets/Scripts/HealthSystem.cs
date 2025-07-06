@@ -2,8 +2,8 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class HealthSystem : MonoBehaviour
-{
+public abstract class HealthSystem : MonoBehaviour, IDamageable
+{ 
     public event Action OnHealthChanged;
     [SerializeField] protected int maxHealth = 100;
     protected int currentHealth;

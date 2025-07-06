@@ -7,6 +7,7 @@ public class BulletManagerPool : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] int poolSize = 10;
 
+    //whole bullet pool
     private Queue<GameObject> pool = new Queue<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

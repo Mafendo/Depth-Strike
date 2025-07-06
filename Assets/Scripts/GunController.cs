@@ -1,40 +1,21 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GunController : MonoBehaviour
+public abstract class GunController : MonoBehaviour
 {
     public BulletManagerPool BulletManagerPoolsScript;
-    [SerializeField] Transform firePoint;
-    [SerializeField] float bulletSpeed = 100f;
-
-
-    void Update()
-    {
-        InputHandler();
-    }
-
-
-
+     [SerializeField] protected Transform firePoint;
+    [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected int damage;
+    [SerializeField] protected Vector3 direction;
     
-    void InputHandler()
+
+
+    protected virtual void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-            Shoot();
-        }
+        // shared shooting logic (instantiate or pool bullets, set speed etc.)
+        Debug.Log("shoot nothing in here");
     }
 
-    void Shoot()
-    {
-        GameObject bullet = BulletManagerPoolsScript.GetBullet();
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = firePoint.rotation;
-        bullet.SetActive(true);
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.speed = bulletSpeed;
-       
-
-    }
 }
 
