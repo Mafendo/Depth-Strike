@@ -12,14 +12,16 @@ public enum BulletOwner
 public abstract class BulletBase : MonoBehaviour
 {
 
-    public Vector3 direction; 
+    public Vector3 direction;
     public float speed;
     public BulletOwner owner;
     public int damage;
     public Color color;
     [SerializeField] private SpriteRenderer bulletSpriteRenderer;
 
-// Initializes the bullet with properties
+    [SerializeField] float lifeTime = 2f;
+
+    // Initializes the bullet with properties
     public virtual void Initialize(Vector3 direction, float speed, int damage, BulletOwner owner)
     {
         this.direction = direction;
@@ -30,7 +32,7 @@ public abstract class BulletBase : MonoBehaviour
 
     }
 
-// Defines how the bullet moves (e.g., straight, homing, zig-zag)
+    // Defines how the bullet moves (e.g., straight, homing, zig-zag)
     protected abstract void Move();
 
     protected virtual void Update()
@@ -39,7 +41,7 @@ public abstract class BulletBase : MonoBehaviour
     }
 
 
-    
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         IDamageable target = other.GetComponent<IDamageable>();
@@ -52,6 +54,37 @@ public abstract class BulletBase : MonoBehaviour
         // If the object can take damage → apply damage
         target?.TakeDamage(damage);
         gameObject.SetActive(false);
+    }
+
+    private async void OnEnable()
+    {
+        // Wait for lifetime
+        await System.Threading.Tasks.Task.Delay((int)(lifeTime * 5000));
+       gameObject.SetActive(false);
+    }
+
+    private void DeactiveBullet(GameObject Bullet)
+    {
+
+
+
+
+        for (int i = 0; i < Bullet.transform.childCount; i++)
+        {
+
+            Transform child = Bullet.transform.GetChild(i);
+            Animator anim = child.GetComponent<Animator>();
+            // Reset animation to first frame
+            if (anim != null)
+            {
+                anim.Play(anim.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0f);
+                anim.Update(0f); // forces it to update immediately
+            }
+            Debug.Log("we rest");
+
+
+        }
+        Bullet.SetActive(false);
     }
 }
 
