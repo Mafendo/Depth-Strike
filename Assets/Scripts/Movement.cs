@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
     private Vector3 movement;
     public float speed = 1f;
     public float lerpFactor = 0.3f;
-
+ 
 
 
 
@@ -37,6 +37,7 @@ public class Movement : MonoBehaviour
 
     void MovementHandler()
     {
+        
         Vector3 targetPosition = rb.position + new Vector3(movement.x, movement.y, 0).normalized * speed * Time.fixedDeltaTime;
         Vector3 lerpPos = Vector3.Lerp(rb.position, targetPosition, lerpFactor);
         rb.MovePosition(lerpPos);

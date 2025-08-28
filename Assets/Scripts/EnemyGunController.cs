@@ -17,14 +17,5 @@ public class EnemyGunController : GunController
 
     }
 
-    protected override void Shoot()
-    {
-        GameObject bullet = BulletManagerPoolsScript.GetBullet();
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = firePoint.rotation;
-        bullet.SetActive(true);
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-         bulletScript.Initialize(direction,bulletSpeed,damage,BulletOwner.Enemy);
-
-    }
+    
 }

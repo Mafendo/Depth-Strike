@@ -5,20 +5,26 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Vector3 offset = new Vector3(0f, 0f, -10f);
     [SerializeField] Transform target;
 
+    [SerializeField] float maxYOffsetValue = 5f;
+    [SerializeField] float minYOffsetValue = -5f;
+
+    [SerializeField] float pixelsPerUnit = 100f; // Match your PPU
+
     void LateUpdate()
     {
-        if (target != null)
-        {
-            Vector3 rawPosition = target.position + offset;
+        if (target == null) return;
 
-            // Snap to pixel grid based on your resolution
-            float pixelsPerUnit = 100f; // or whatever your camera PPU is
-            float pixelSize = 1f / pixelsPerUnit;
+        // Target position with offset
+        Vector3 rawPosition = target.position + offset;
 
-            rawPosition.x = Mathf.Round(rawPosition.x / pixelSize) * pixelSize;
-            rawPosition.y = Mathf.Round(rawPosition.y / pixelSize) * pixelSize;
+        // Clamp Y position inside limits
+        rawPosition.y = Mathf.Clamp(rawPosition.y, minYOffsetValue, maxYOffsetValue);
 
-            transform.position = rawPosition;
-        }
+        // Snap to pixel grid
+        float pixelSize = 1f / pixelsPerUnit;
+        rawPosition.x = Mathf.Round(rawPosition.x / pixelSize) * pixelSize;
+        rawPosition.y = Mathf.Round(rawPosition.y / pixelSize) * pixelSize;
+
+        transform.position = rawPosition;
     }
 }

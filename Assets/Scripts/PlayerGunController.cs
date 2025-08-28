@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerGunController : GunController
 {
-    
+
     void Update()
     {
         InputHandler();
@@ -17,17 +17,5 @@ public class PlayerGunController : GunController
         }
     }
 
-    protected override void Shoot()
-    {
-        GameObject bullet = BulletManagerPoolsScript.GetBullet();
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = firePoint.rotation;
-        bullet.SetActive(true);
-
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.Initialize(direction,bulletSpeed,damage,BulletOwner.Player);
-        
-
-
-    }
+ 
 }

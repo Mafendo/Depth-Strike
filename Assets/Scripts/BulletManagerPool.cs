@@ -1,36 +1,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Enum for different types of bullets
+public enum BulletType { PNormal, PHoming, PSpread }
+
 public class BulletManagerPool : MonoBehaviour
 {
+    // Serializable class to define a bullet pool in the Inspector
+    [System.Serializable]
+    public class BulletPool
+    {
+        public BulletType type;       // The type of bullet this pool represents
+        public GameObject prefab;     // The prefab to instantiate for this pool
+        public int size;              // How many bullets to pre-create
+    }
 
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] int poolSize = 10;
+    [SerializeField] private List<BulletPool> bulletPools; // List of bullet pools editable in Inspector
 
-    //whole bullet pool
-    private Queue<GameObject> pool = new Queue<GameObject>();
+    // Dictionary to map bullet type -> Queue of bullets for pooling
+    private Dictionary<BulletType, Queue<GameObject>> poolDictionary;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        for (int i = 0; i < poolSize; i++)
+        // Initialize the dictionary
+        poolDictionary = new Dictionary<BulletType, Queue<GameObject>>();
+
+        // For each bullet pool defined in Inspector
+        foreach (var pool in bulletPools)
         {
-            GameObject bullet = Instantiate(bulletPrefab);
-            bullet.SetActive(false);
-            pool.Enqueue(bullet);
+            Queue<GameObject> queue = new Queue<GameObject>();
+
+            // Pre-instantiate bullets for this pool
+            for (int i = 0; i < pool.size; i++)
+            {
+                GameObject bullet = Instantiate(pool.prefab); // Create bullet
+                bullet.SetActive(false);                      // Deactivate it
+                queue.Enqueue(bullet);                        // Add to the queue
+            }
+
+            // Add the queue to the dictionary under the bullet type
+            poolDictionary.Add(pool.type, queue);
         }
     }
 
-    public GameObject GetBullet()
+    // Get a bullet from the pool of a specific type
+    public GameObject GetBullet(BulletType type)
     {
-        GameObject bullet = pool.Dequeue();
-        bullet.SetActive(true);
-        pool.Enqueue(bullet); // immediately enqueue again so it stays in rotation
-        return bullet;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
+        var queue = poolDictionary[type];  // Get the queue for this type
+        var bullet = queue.Dequeue();      // Take a bullet from the front
+        bullet.SetActive(true);            // Activate it
+        queue.Enqueue(bullet);             // Put it back at the end
+        return bullet;                     // Return it to the caller
     }
 }

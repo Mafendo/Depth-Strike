@@ -1,10 +1,5 @@
 using UnityEngine;
-public enum BulletOwner
-{
-    Player,
-    Enemy,
-    non
-}
+
 public class Bullet : MonoBehaviour
 {
     public Vector3 direction;
