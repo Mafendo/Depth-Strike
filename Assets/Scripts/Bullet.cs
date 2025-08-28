@@ -50,6 +50,5 @@ public class Bullet : MonoBehaviour
 
         gameObject.SetActive(false); // Deactivate the bullet
 
-
     }
 }

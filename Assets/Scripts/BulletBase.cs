@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 // Enum that describes who the bullet belongs to
 public enum BulletOwner
@@ -17,7 +19,9 @@ public abstract class BulletBase : MonoBehaviour
     public BulletOwner owner;
     public int damage;
     public Color color;
-    [SerializeField] private SpriteRenderer bulletSpriteRenderer;
+    [SerializeField] GameObject[] bulletSpriteRenderers;
+    [SerializeField] GameObject explotionAnim;
+    [SerializeField] GameObject TrailParent;
 
     [SerializeField] float lifeTime = 2f;
 
@@ -52,39 +56,54 @@ public abstract class BulletBase : MonoBehaviour
             return;
 
         // If the object can take damage → apply damage
+
         target?.TakeDamage(damage);
-        gameObject.SetActive(false);
+        DeactivatedBullet();
     }
 
     private async void OnEnable()
     {
         // Wait for lifetime
-        await System.Threading.Tasks.Task.Delay((int)(lifeTime * 5000));
-       gameObject.SetActive(false);
+        await System.Threading.Tasks.Task.Delay((int)(lifeTime * 1000));
+        gameObject.SetActive(false);
     }
 
-    private void DeactiveBullet(GameObject Bullet)
+    private void DeactivatedBullet()
     {
-
-
-
-
-        for (int i = 0; i < Bullet.transform.childCount; i++)
+        foreach (GameObject sprite in bulletSpriteRenderers)
         {
+            sprite.SetActive(false);
+        }
 
-            Transform child = Bullet.transform.GetChild(i);
-            Animator anim = child.GetComponent<Animator>();
-            // Reset animation to first frame
+        explotionAnim.SetActive(true);
+
+        // Start coroutine to wait for trails to finish
+        StartCoroutine(WaitForTrailAndDeactivate());
+    }
+
+    private IEnumerator WaitForTrailAndDeactivate()
+    {
+        // Optional: get all trail animators
+        Animator[] trailAnimators = TrailParent.GetComponentsInChildren<Animator>();
+
+        // Wait until all trail animations are done
+        foreach (Animator anim in trailAnimators)
+        {
             if (anim != null)
             {
-                anim.Play(anim.GetCurrentAnimatorStateInfo(0).shortNameHash, -1, 0f);
-                anim.Update(0f); // forces it to update immediately
+                // Wait until the animation has finished playing (normalizedTime >= 1)
+                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+                {
+                    yield return null; // wait for next frame
+                }
             }
-            Debug.Log("we rest");
-
-
         }
-        Bullet.SetActive(false);
+
+        // Deactivate explosion (optional)
+        explotionAnim.SetActive(false);
+
+        // Finally, deactivate the bullet
+        gameObject.SetActive(false);
     }
 }
 
