@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Enum for different types of bullets
-public enum BulletType { PNormal, PHoming, PSpread }
+public enum BulletType { PNormal, PHoming, PSpread, ENormal, EHoming, ESpread }
 
 public class BulletManagerPool : MonoBehaviour
 {

@@ -19,9 +19,10 @@ public abstract class BulletBase : MonoBehaviour
     public BulletOwner owner;
     public int damage;
     public Color color;
+    private float initialSpeed;
     [SerializeField] GameObject[] bulletSpriteRenderers;
     [SerializeField] GameObject explotionAnim;
-    [SerializeField] GameObject TrailParent;
+
 
     [SerializeField] float lifeTime = 2f;
 
@@ -58,11 +59,27 @@ public abstract class BulletBase : MonoBehaviour
         // If the object can take damage → apply damage
 
         target?.TakeDamage(damage);
+        Debug.Log(other.name);
+
+
+        this.speed = 0;
         DeactivatedBullet();
     }
-
+    private void Awake()
+    {
+        initialSpeed = speed;
+    }
     private async void OnEnable()
     {
+         foreach (GameObject sprite in bulletSpriteRenderers)
+        {
+            sprite.SetActive(true);
+        }
+        explotionAnim.SetActive(false);
+        speed = initialSpeed;
+
+
+
         // Wait for lifetime
         await System.Threading.Tasks.Task.Delay((int)(lifeTime * 1000));
         gameObject.SetActive(false);
@@ -76,31 +93,24 @@ public abstract class BulletBase : MonoBehaviour
         }
 
         explotionAnim.SetActive(true);
+        WaitForExplotionAndDeactivate();
 
-        // Start coroutine to wait for trails to finish
-        StartCoroutine(WaitForTrailAndDeactivate());
+
     }
 
-    private IEnumerator WaitForTrailAndDeactivate()
+    private IEnumerator WaitForExplotionAndDeactivate()
     {
-        // Optional: get all trail animators
-        Animator[] trailAnimators = TrailParent.GetComponentsInChildren<Animator>();
 
-        // Wait until all trail animations are done
-        foreach (Animator anim in trailAnimators)
+        Animator anim = explotionAnim.GetComponent<Animator>();
+
+        if (anim != null)
         {
-            if (anim != null)
+            // Wait until the animation has finished playing (normalizedTime >= 1)
+            while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                // Wait until the animation has finished playing (normalizedTime >= 1)
-                while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-                {
-                    yield return null; // wait for next frame
-                }
+                yield return null; // wait for next frame
             }
         }
-
-        // Deactivate explosion (optional)
-        explotionAnim.SetActive(false);
 
         // Finally, deactivate the bullet
         gameObject.SetActive(false);
