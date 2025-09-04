@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,10 +13,21 @@ public abstract class GunController : MonoBehaviour
     [SerializeField] protected float bulletSpeed;
     [SerializeField] protected int damage;
     private protected Vector3 direction;
+    public event Action OnShoot;
+
+    protected Rigidbody rb;
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
 
 
     protected virtual void Shoot()
     {
+
+        OnShoot?.Invoke(); 
+        
         foreach (var port in shootPorts)
         {
             GameObject bullet = BulletManagerPoolsScript.GetBullet(port.bulletType);
@@ -24,7 +36,7 @@ public abstract class GunController : MonoBehaviour
             bullet.transform.rotation = Quaternion.identity; // or based on port direction
             bullet.SetActive(true);
 
-            BulletBase bulletScript =bullet.GetComponent<BulletBase>();
+            BulletBase bulletScript = bullet.GetComponent<BulletBase>();
             bulletScript.direction = port.direction;
 
         }

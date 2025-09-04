@@ -1,5 +1,83 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &584676641700409063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4632422741368168565}
+  - component: {fileID: 7876284394158561269}
+  m_Layer: 3
+  m_Name: ShootPort
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4632422741368168565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584676641700409063}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.65, y: 0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6234955548172200219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7876284394158561269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584676641700409063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8944e430a1ced8b48b47a39b8be162e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 4632422741368168565}
+  direction: {x: 1, y: 0, z: 0}
+  bulletType: 3
+--- !u!1 &981526823264529362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 508359566793545551}
+  m_Layer: 0
+  m_Name: GunControlerBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &508359566793545551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981526823264529362}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.84918976, y: 0.4834404, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6234955548172200219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4356473328760716092
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,9 +386,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6234955548172200219}
-  - component: {fileID: 791678167258440505}
-  - component: {fileID: -803976049673908415}
   - component: {fileID: 7355807971441843596}
+  - component: {fileID: 3008117954681235507}
+  - component: {fileID: 1608644398492399082}
+  - component: {fileID: 791678167258440505}
   - component: {fileID: 6847852500165578691}
   m_Layer: 8
   m_Name: CubeEnemy
@@ -332,11 +411,64 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4632422741368168565}
   - {fileID: 7396968336219810248}
   - {fileID: 3869323019202615228}
   - {fileID: 6086232039030876925}
+  - {fileID: 508359566793545551}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7355807971441843596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143643987245958569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e62dc95fe4eaf4980d55c7b324bf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletManagerPoolsScript: {fileID: 0}
+  shootPorts:
+  - {fileID: 7876284394158561269}
+  firePoint: {fileID: 6234955548172200219}
+  bulletSpeed: 50
+  damage: 15
+  fireCooldown: 2
+--- !u!114 &3008117954681235507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143643987245958569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ede3595cdd3125448c70b220aa8cba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthText: {fileID: 7074889280422729758}
+  MeshHolder: {fileID: 8022321824382147783}
+  ExplotionAnim: {fileID: 5074308273751660236}
+--- !u!114 &1608644398492399082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143643987245958569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aff32dc35b6e5849b2862cae6b5d962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunController: {fileID: 7355807971441843596}
+  targetPostion: {fileID: 0}
+  ownPostion: {fileID: 6143643987245958569}
+  speed: 2
 --- !u!65 &791678167258440505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -358,40 +490,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 2, z: 2}
   m_Center: {x: 0.35, y: 0, z: -0.4}
---- !u!114 &-803976049673908415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6143643987245958569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ede3595cdd3125448c70b220aa8cba2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthText: {fileID: 7074889280422729758}
-  MeshHolder: {fileID: 8022321824382147783}
-  ExplotionAnim: {fileID: 5074308273751660236}
---- !u!114 &7355807971441843596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6143643987245958569}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e62dc95fe4eaf4980d55c7b324bf58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletManagerPoolsScript: {fileID: 0}
-  shootPorts: []
-  firePoint: {fileID: 6234955548172200219}
-  bulletSpeed: 50
-  damage: 15
-  fireCooldown: 2
 --- !u!54 &6847852500165578691
 Rigidbody:
   m_ObjectHideFlags: 0

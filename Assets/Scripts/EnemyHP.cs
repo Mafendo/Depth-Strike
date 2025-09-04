@@ -3,7 +3,7 @@ using TMPro;
 using System.Collections;
 
 
-public class Enemy : HealthSystem
+public class EnemyHP : HealthSystem
 {
 
         [SerializeField] private TextMeshPro healthText;
