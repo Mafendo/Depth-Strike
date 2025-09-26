@@ -26,5 +26,13 @@ public class Player : HealthSystem
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(10);
+            Debug.Log("colidede with enemty");
+        }
+    }
 
 }

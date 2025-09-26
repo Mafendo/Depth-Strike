@@ -1,11 +1,13 @@
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEditor.U2D;
 using UnityEngine;
 
 public class ChaserEnemy : EnemyBaseMovment
 {
     [SerializeField] GameObject targetPostion;
     [SerializeField] GameObject ownPostion;
-    [SerializeField] float speed = 2f;
+
     // Update is called once per frame
     private bool stopVerticalMovement = false;
     void Awake()
@@ -26,14 +28,15 @@ public class ChaserEnemy : EnemyBaseMovment
     void Update()
     {
         Vector3 direction = CalcDirection(targetPostion.transform.position, ownPostion.transform.position);
+
+
         if (stopVerticalMovement)
         {
-            // Remove Y component
-            direction.y = 0;
+            return;
 
         }
-        transform.position += direction.normalized * speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPostion.transform.position, speed * Time.deltaTime);
 
-        
+
     }
 }

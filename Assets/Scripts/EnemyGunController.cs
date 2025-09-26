@@ -14,6 +14,7 @@ public class EnemyGunController : GunController
         {
            
             Shoot();
+            
             timer = 0;
         }
 
