@@ -437,6 +437,7 @@ MonoBehaviour:
   bulletSpeed: 50
   damage: 15
   fireCooldown: 2
+  healthSystem: {fileID: 3008117954681235507}
 --- !u!114 &3008117954681235507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +470,7 @@ MonoBehaviour:
   speed: 2
   targetPostion: {fileID: 0}
   ownPostion: {fileID: 6143643987245958569}
+  healthSystem: {fileID: 3008117954681235507}
 --- !u!65 &791678167258440505
 BoxCollider:
   m_ObjectHideFlags: 0

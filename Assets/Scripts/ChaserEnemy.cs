@@ -7,12 +7,18 @@ public class ChaserEnemy : EnemyBaseMovment
 {
     [SerializeField] GameObject targetPostion;
     [SerializeField] GameObject ownPostion;
+    [SerializeField] HealthSystem healthSystem;
 
     // Update is called once per frame
     private bool stopVerticalMovement = false;
     void Awake()
     {
         gunController.OnShoot += StopVertical;
+        healthSystem.OnDeath += OnDeath;
+    }
+    private void OnDeath()
+    {
+        base.speed = 0;
     }
     private void StopVertical()
     {

@@ -15,6 +15,17 @@ public class PatrollerEnemy : EnemyBaseMovment
     private Quaternion targetRotation;
     [SerializeField] ShootPort shootPort;
     private int shootDircation;
+    [SerializeField] HealthSystem healthSystem;
+    private bool isDead = false;
+    void Awake()
+    {
+        healthSystem.OnDeath += Ondeath;
+    }
+    private void Ondeath()
+    {
+        isDead = true;
+        speed = 0;
+    }                                               
     void Start()
     {
 
@@ -23,6 +34,8 @@ public class PatrollerEnemy : EnemyBaseMovment
     }
     void Update()
     {
+
+       
         // Move towards the current target
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 
 public class EnemyHP : HealthSystem
@@ -9,6 +10,8 @@ public class EnemyHP : HealthSystem
         [SerializeField] private TextMeshPro healthText;
         [SerializeField] GameObject MeshHolder;
         [SerializeField] GameObject ExplotionAnim;
+        
+      
         protected override void Start()
         {
                 base.Start(); // This ensures currentHealth = maxHealth runs
@@ -31,7 +34,7 @@ public class EnemyHP : HealthSystem
                 Debug.Log("Enemy died!");
                 MeshHolder.SetActive(false);
                 ExplotionAnim.SetActive(true);
-              StartCoroutine(WaitForAnimationAndDestroy());
+                StartCoroutine(WaitForAnimationAndDestroy());
 
 
 
@@ -49,6 +52,7 @@ public class EnemyHP : HealthSystem
                         yield return new WaitForSeconds(length);
                 }
                 Debug.Log("now we die");
+            
                 Destroy(gameObject);
 
         }

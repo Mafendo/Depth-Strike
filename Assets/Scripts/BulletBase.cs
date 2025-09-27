@@ -94,6 +94,7 @@ public abstract class BulletBase : MonoBehaviour
 
         explotionAnim.SetActive(true);
         WaitForExplotionAndDeactivate();
+        speed = 0;
 
 
     }

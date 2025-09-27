@@ -405,6 +405,7 @@ MonoBehaviour:
   bulletSpeed: 50
   damage: 15
   fireCooldown: 2
+  healthSystem: {fileID: 3008117954681235507}
 --- !u!114 &3008117954681235507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,6 +489,7 @@ MonoBehaviour:
   reachThreshold: 0.1
   rotationSpeed: 5
   shootPort: {fileID: 7876284394158561269}
+  healthSystem: {fileID: 3008117954681235507}
 --- !u!1 &8022321824382147783
 GameObject:
   m_ObjectHideFlags: 0
